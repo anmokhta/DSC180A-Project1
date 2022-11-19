@@ -1,15 +1,21 @@
-def get_data(fp, years, states):
-    ....
-    return data
+# TEST DATA
+# Creates Random Generated Graph with single clique
+# ---------------------------------------------------------
+# N = total number of nodes in graph (default 75)
+# Cn = number of nodes in clique (default 12)
+# Cp = probability node in clique is connected to other node in clique (default 0.35)
+# Op = probability node NOT in clique is connected to other node NOT in clique (default 0.1)
+# q = probability node in clique is connected to other node NOT in clique (default 0.1)
+# s = seed for reproducibility (default 3)
+# clique = graph of clique nodes and edges
+# outer = graph of outer nodes and edges
+# combined = combined graph of clique and edges (with random edges base on q)
+# clique_nodes = ground_truth list of clique nodes
+# outer_nodes = ground_truth list of outer nodes
 
-# Parameter
-# N  = 75
-# p1 = 0.5
-# p2 = 0.5
-# q  = 0.25
 
 
-def create_rand_graphs(N=75, Cn=12, Cp=0.35, Op=0.1, q=.1, s=3):
+def create_rand_graphs(N, Cn, Cp, Op, q, s):
     # make clique
     cliq_graph = nx.gnp_random_graph(Cn, Cp, seed=s) # red
     # make outside of clique
@@ -17,11 +23,11 @@ def create_rand_graphs(N=75, Cn=12, Cp=0.35, Op=0.1, q=.1, s=3):
     relabel = {}
     return cliq_graph, out_graph
 
-a, b = create_rand_graphs(N=75, Cn=12, Cp=0.35, Op=0.1, q=.1, s=3)
-nx.draw(a, with_labels=True)
-#nx.draw_networkx()
-nx.draw(b, with_labels=True)
-def create_combined(N, Cn, clique, outer, q=.1):
+
+
+
+
+def create_combined(N, Cn, Cp, Op, q, s, clique, outer):
     
     clique_nodes = clique.nodes()
     
@@ -39,15 +45,18 @@ def create_combined(N, Cn, clique, outer, q=.1):
     
     return combined, clique_nodes, outer_nodes
 
-def create_combined_edges(combined, clique_nodes, outer_nodes, q=0.1, s=3):
+
+
+
+
+def create_combined_edges(N, Cn, Cp, Op, q, s, clique, outer, combined, clique_nodes, outer_nodes):
     seed(s)
     combined.add_edges_from([ (u, v) for u, v in product(clique_nodes, outer_nodes) if random() < q ])
     return combined, clique_nodes, outer_nodes
-a, b = create_rand_graphs(N=75, Cn=12, Cp=0.35, Op=0.1, q=.1, s=3)
-g, l1, l2 = create_combined(N, Cn, a, b, q=.1)
-combined, clique_nodes, outer_nodes = create_combined_edges(g, l1, l2)
-# nx.draw(g, with_labels=True)
-# nx.draw(, with_labels=True)
+
+
+
+
 
 def plot_graph(combined, clique_nodes, outer_nodes):
     pos = nx.spring_layout(combined)
