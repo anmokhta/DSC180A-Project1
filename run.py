@@ -5,12 +5,9 @@ import json
 
 sys.path.insert(0, 'src')
 
-from etl import get_data, load_training_data, load_test_data
-from model import train
+from test_etl import create_rand_graphs, create_combined, create_combined_edges, plot_graph
+#from model import train
 
-#clean
-#all
-#test
 
 
 def main(targets):
@@ -20,26 +17,30 @@ def main(targets):
         `main` runs the targets in order of data=>model.
     '''
 
+    ##FULL ORDER OF TARGETS BY PRIORITY
+    #clean (remove all data)
+    #test (data -> model)
+    #all (test-data model)
 
-    if 'data' in targets:
-        with open('config/data-params.json') as fh:
-            data_cfg = json.load(fh)
-        get_data(data_cfg)
-        train_images, train_labels = load_training_data(data_cfg["outdir"])
-        test_images, test_labels = load_test_data(data_cfg["outdir"])
-        data = (train_images, train_labels, test_images, test_labels)
+    #test-data
+    #data
+    #model
+    
+    
+    if 'test' in targets:
+        with open('config/test_etl.json') as fh:
+            test_etl_config = json.load(fh)
+        #check if pickles not exist in raw, if true run function below
+        create_rand_graphs(**test_etl_config)
+        #check if gt or combined_seperated not exist in temp
+        create_combined(**test_etl_config)
+        create_combined_edges(**test_etl_config)
 
-    if 'model' in targets:
-        print("in run -> model")
-        with open('config/model-params.json') as fh:
-            model_cfg = json.load(fh)
-
-        train(data, model_cfg)
-
-
-
+        
+        
 if __name__ == '__main__':
     # run via:
     # python main.py data model
     targets = sys.argv[1:]
     main(targets)
+

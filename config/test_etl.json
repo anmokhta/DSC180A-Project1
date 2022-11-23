@@ -4,5 +4,7 @@
     "Cp": 0.35,
     "Op": 0.1, 
     "q": 0.1,
-    "s": 3
-  }
+    "s": 3,
+    "temp_dir": "test/temp/",
+    "data_dir": "test/testdata/"
+}

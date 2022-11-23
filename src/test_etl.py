@@ -25,25 +25,24 @@ import pickle
 import json
 
 
-def create_rand_graphs(N, Cn, Cp, Op, q, s):
+def create_rand_graphs(N, Cn, Cp, Op, q, s, temp_dir, data_dir):
     # make clique
     cliq_graph = nx.gnp_random_graph(Cn, Cp, seed=s) # red
     # make outside of clique
     out_graph = nx.gnp_random_graph(N-Cn, Op, seed=s) # blue
 
     # save seperate graphs as files
-    pickle.dump(cliq_graph, open('data/test/raw/cliq_graph.pickle', 'wb'))
-    pickle.dump(out_graph, open('data/test/raw/out_graph.pickle', 'wb'))
+    pickle.dump(cliq_graph, open(temp_dir + 'cliq_graph.pickle', 'wb'))
+    pickle.dump(out_graph, open(temp_dir + 'out_graph.pickle', 'wb'))
 
 
 
 
 
-def create_combined(N, Cn, Cp, Op, q, s):
+def create_combined(N, Cn, Cp, Op, q, s, temp_dir, data_dir):
     # load in seperate graphs
-    clique = pickle.load(open('data/test/raw/cliq_graph.pickle', 'rb'))
-    outer = pickle.load(open('data/test/raw/out_graph.pickle', 'rb'))
-    
+    clique = pickle.load(open(temp_dir + 'cliq_graph.pickle', 'rb'))
+    outer = pickle.load(open(temp_dir + 'out_graph.pickle', 'rb'))
     
     clique_nodes = clique.nodes()
     
@@ -54,13 +53,11 @@ def create_combined(N, Cn, Cp, Op, q, s):
     
     # create ground truth JSON
     ground_truths = {
-        "clique_nodes": clique_nodes,
-        "outer_nodes": outer_nodes
+        "clique_nodes": list(clique_nodes),
+        "outer_nodes": list(outer_nodes)
     }
-    
-    with open("data/test/temp/ground_truth.json", "w") as outfile:
-        json.dump(dictionary, outfile)
-    
+    with open(data_dir + 'ground_truth.json', "w") as outfile:
+        json.dump(ground_truths, outfile)
     
     # create and save combined graph
     combined = nx.Graph()
@@ -69,7 +66,7 @@ def create_combined(N, Cn, Cp, Op, q, s):
     combined.add_nodes_from(outer_nodes)
     combined.add_edges_from(outer.edges())
     
-    pickle.dump(combined, open('data/test/raw/combined_separated.pickle', 'wb'))
+    pickle.dump(combined, open(temp_dir + 'combined_separated.pickle', 'wb'))
     
 
     
@@ -78,15 +75,15 @@ def create_combined(N, Cn, Cp, Op, q, s):
 
 
 
-def create_combined_edges(N, Cn, Cp, Op, q, s):
-    combined = pickle.load(open('data/test/raw/combined_separated.pickle', 'rb'))
+def create_combined_edges(N, Cn, Cp, Op, q, s, temp_dir, data_dir):
+    combined = pickle.load(open(temp_dir + 'combined_separated.pickle', 'rb'))
     
-    with open('data/test/temp/ground_truth.json', 'r') as openfile:
+    with open(data_dir + 'ground_truth.json', "r") as openfile:
         ground_truth = json.load(openfile)
     
     seed(s)
     combined.add_edges_from([ (u, v) for u, v in product(ground_truth['clique_nodes'], ground_truth['outer_nodes']) if random() < q ])
-    pickle.dump(combined, open('data/test/temp/combined.pickle', 'wb'))
+    pickle.dump(combined, open(data_dir + 'combined.pickle', 'wb'))
 
 
 
