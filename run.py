@@ -21,8 +21,8 @@ def main(targets):
 
     ##FULL ORDER OF TARGETS BY PRIORITY
     #clean (remove all data)
-    #test (data -> model)
-    #all (test-data model)
+    #test (test-data model)
+    #all (data -> model)
 
     #test-data
     #data
