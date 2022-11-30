@@ -17,6 +17,7 @@ def clean():
                     file_path = os.path.join(folder, filename)
                     try:
                         os.remove(file_path)
+                        print(file_path + " removed!")
                     except Exception as e:
                         print('Failed to delete %s. Reason: %s' % (file_path, e))
             except Exception as e:

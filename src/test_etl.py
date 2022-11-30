@@ -33,7 +33,10 @@ def create_rand_graphs(N, Cn, Cp, Op, q, s, temp_dir, data_dir):
 
     # save seperate graphs as files
     pickle.dump(cliq_graph, open(temp_dir + 'cliq_graph.pickle', 'wb'))
+    print(temp_dir + 'cliq_graph.pickle saved!' )
     pickle.dump(out_graph, open(temp_dir + 'out_graph.pickle', 'wb'))
+    print(temp_dir + 'out_graph.pickle saved!' )
+
 
 
 
@@ -58,6 +61,8 @@ def create_combined(N, Cn, Cp, Op, q, s, temp_dir, data_dir):
     }
     with open(data_dir + 'ground_truth.json', "w") as outfile:
         json.dump(ground_truths, outfile)
+    print(data_dir + 'ground_truth.json saved!' )
+    
     
     # create and save combined graph
     combined = nx.Graph()
@@ -67,6 +72,8 @@ def create_combined(N, Cn, Cp, Op, q, s, temp_dir, data_dir):
     combined.add_edges_from(outer.edges())
     
     pickle.dump(combined, open(temp_dir + 'combined_separated.pickle', 'wb'))
+    print(temp_dir + 'combined_separated.pickle saved!' )
+
     
 
     
@@ -84,6 +91,8 @@ def create_combined_edges(N, Cn, Cp, Op, q, s, temp_dir, data_dir):
     seed(s)
     combined.add_edges_from([ (u, v) for u, v in product(ground_truth['clique_nodes'], ground_truth['outer_nodes']) if random() < q ])
     pickle.dump(combined, open(data_dir + 'combined.pickle', 'wb'))
+    print(data_dir + 'combined.pickle saved!' )
+    
 
 
 
