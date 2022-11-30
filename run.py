@@ -27,16 +27,19 @@ def main(targets):
     #test-data
     #data
     #model
+    model_test = null
     
     if 'clean' in targets:
         clean()
     
     if 'test' in targets:
         targets.extend(["test-data", "model"])
+        model_test = True
         print("extended test-data & model!")
 
     if 'all' in targets:
         targets.extend(["data", "model"])
+        model_test = False
         print("extended data & model!")
     
     if 'test-data' in targets:
@@ -53,6 +56,10 @@ def main(targets):
         
     if 'model' in targets:
         print("This will check which dataset to load (if REAL data exists, that. otherwise check if test data exists, uest that) and run model")
+        if model_test:
+            print("using test data to make model!")
+        else:
+            print("using real data to make model!")
         # Maybe do above with data checker function idk
         
 if __name__ == '__main__':
