@@ -5,7 +5,9 @@ import json
 
 sys.path.insert(0, 'src')
 
+from clean import clean
 from test_etl import create_rand_graphs, create_combined, create_combined_edges, plot_graph
+
 #from model import train
 
 
@@ -26,6 +28,8 @@ def main(targets):
     #data
     #model
     
+    if 'clean' in targets:
+        clean()
     
     if 'test' in targets:
         with open('config/test_etl.json') as fh:
