@@ -27,7 +27,7 @@ def main(targets):
     #test-data
     #data
     #model
-    model_test = null
+    model_test = None
     
     if 'clean' in targets:
         clean()
