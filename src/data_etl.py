@@ -21,7 +21,7 @@ from kaggle.api.kaggle_api_extended import KaggleApi
 
 #TO-DO: check if SQLITE FILE EXISTS
 def pull_raw_data():
-    if os.path.exists("../data/raw/database.sqlite"):
+    if os.path.exists("data/raw/database.sqlite"):
         print("Raw data already downloaded from Kaggle! Moving on to next step")
     else:
         kapi = KaggleApi()
@@ -30,3 +30,6 @@ def pull_raw_data():
         print(kapi.dataset_list_files('benhamner/nips-papers').files)
         kapi.dataset_download_files('benhamner/nips-papers', path='data/raw/', quiet=False, unzip=True)
 
+
+def read_raw_sql():
+    print("sql")
