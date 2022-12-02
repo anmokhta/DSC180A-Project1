@@ -9,7 +9,7 @@ import os
 # remove everything in WHATEVER/model
 
 def clean():
-    folders = ["test/temp", "test/testdata", "test/model", "data/raw", "data/temp", "data/out",]
+    folders = ["test/temp", "test/testdata", "test/model", "data/raw", "data/temp", "data/out"]
     try:
         for folder in folders:
             try:
