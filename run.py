@@ -7,6 +7,7 @@ sys.path.insert(0, 'src')
 
 from clean import clean
 from test_etl import create_rand_graphs, create_combined, create_combined_edges, plot_graph
+from data_etl import pull_raw_data
 
 #from model import train
 
@@ -53,6 +54,7 @@ def main(targets):
 
     if 'data' in targets:
         print("This will make data prepped for the model! use src/data_etl.py for making functions")
+        pull_raw_data()
         
     if 'model' in targets:
         print("This will check which dataset to load (if REAL data exists, that. otherwise check if test data exists, uest that) and run model")
