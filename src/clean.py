@@ -23,4 +23,4 @@ def clean():
             except Exception as e:
                         print('Failed to find folder. Reason: %s' % (file_path, e))
     except Exception as e:
-        print("NO FILES TO CLEAN!")
+                        print('Failed to any folders. Reason: %s' % (file_path, e))
