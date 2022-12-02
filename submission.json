@@ -1,4 +1,4 @@
 {
-    "dockerhub-id": "anmokhta/dsc180a-proj1",
+    "dockerhub-id": "anmokhta/dsc180a-proj1:kaggle",
     "build-script": "python run.py"
 }
