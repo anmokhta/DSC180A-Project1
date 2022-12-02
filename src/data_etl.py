@@ -32,7 +32,16 @@ def pull_raw_data():
 
 
 def read_raw_sql():
-    print("sql")
+    connect = sqlite3.connect('data/raw/database.sqlite')
+    query = """
+    SELECT pa.paper_id, pa.author_id, a.name AS author_name
+    FROM paper_authors AS pa JOIN papers AS p ON pa.paper_id = p.id
+    JOIN authors as a ON pa.author_id = a.id
+    WHERE p.Year BETWEEN '2015' AND '2018'
+    ORDER BY paper_id
+    """
+    df_nips = pd.read_sql(query, connect)
+    df_nips.to_csv('data/temp/df_nips.csv')
 
 
 
