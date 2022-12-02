@@ -6,5 +6,5 @@
     "q": 0.1,
     "s": 3,
     "temp_dir": "test/temp/",
-    "data_dir": "test/testdata/"
+    "data_dir": "test/raw/"
 }
