@@ -21,6 +21,6 @@ def clean():
                     except Exception as e:
                         print('Failed to delete %s. Reason: %s' % (file_path, e))
             except Exception as e:
-                        print('Failed to find folder. Reason: %s' % (file_path, e))
+                        print('Failed to find folder. Reason: %s' % (e))
     except Exception as e:
-                        print('Failed to any folders. Reason: %s' % (file_path, e))
+                        print('Failed to any folders. Reason: %s' % (e))
