@@ -1,20 +1,15 @@
 import os
 
-# remove everything in test/temp
-# remove everything in test/testdata
-# remove everything in test/model
-
-# remove everything in WHATEVER/data
-# remove everything in WHATEVER/temp
-# remove everything in WHATEVER/model
-
 def clean():
-    folders = ["test/temp", "test/raw", "test/model", "data/raw", "data/temp", "data/out"]
-    try:
-        for folder in folders:
+    folders = ["test", "nips", "political"]
+    subfolders = ["raw", "temp", "out"]
+
+    for folder in folders:
+        for subfolder in subfolders:
+            currdir = os.path.join(folder, subfolder)
             try:
-                for filename in os.listdir(folder):
-                    file_path = os.path.join(folder, filename)
+                for filename in os.listdir(currdir):
+                    file_path = os.path.join(currdir, filename)
                     try:
                         os.remove(file_path)
                         print(file_path + " removed!")
@@ -22,5 +17,3 @@ def clean():
                         print('Failed to delete %s. Reason: %s' % (file_path, e))
             except Exception as e:
                         print('Failed to find folder. Reason: %s' % (e))
-    except Exception as e:
-                        print('Failed to any folders. Reason: %s' % (e))
