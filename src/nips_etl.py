@@ -9,6 +9,10 @@ from matplotlib import pylab
 
 import itertools
 
+# "kaggle_dir": "benhamner/nips-papers",
+# "temp_dir": "data/nips/temp/",
+# "data_dir": "data/nips/raw/"
+
 
 #!pip install kaggle
 
@@ -20,18 +24,19 @@ from kaggle.api.kaggle_api_extended import KaggleApi
 
 
 #TO-DO: check if SQLITE FILE EXISTS
-def pull_kaggle_data(data_dir):
+def pull_kaggle_data(data_dir, kaggle_dir):
+
     if os.path.exists("data/raw/database.sqlite"):
         print("Raw data already downloaded from Kaggle! Moving on to next step")
     else:
         kapi = KaggleApi()
         kapi.authenticate()
 
-        print(kapi.dataset_list_files('benhamner/nips-papers').files)
-        kapi.dataset_download_files('benhamner/nips-papers', path=data_dir, quiet=False, unzip=True)
+        print(kapi.dataset_list_files(kaggle_dir).files)
+        kapi.dataset_download_files(kaggle_dir, path=data_dir, quiet=False, unzip=True)
 
 
-def read_raw_sql():
+def read_raw_sql(temp_dir):
     connect = sqlite3.connect('data/raw/database.sqlite')
     query = """
     SELECT pa.paper_id, pa.author_id, a.name AS author_name
@@ -41,8 +46,7 @@ def read_raw_sql():
     ORDER BY paper_id
     """
     df_nips = pd.read_sql(query, connect)
-    df_nips.to_csv('data/temp/df_nips.csv')
-
+    df_nips.to_csv(temp_dir + 'df_nips.csv')
 
 
 
