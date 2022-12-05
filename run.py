@@ -46,15 +46,17 @@ def main(targets):
     if 'test-data' in targets:
         with open('config/test_etl.json') as fh:
             test_etl_config = json.load(fh)
-        #check if pickles not exist in raw, if true run function below
+        #check if pickles not exist in raw, if true run function below (ADD INTO ETL PY FILE)
         create_rand_graphs(**test_etl_config)
         #check if gt or combined_seperated not exist in temp
         create_combined(**test_etl_config)
         create_combined_edges(**test_etl_config)
 
-    if 'data' in targets:
-        print("This will make data prepped for the model! use src/data_etl.py for making functions")
-        pull_raw_data()
+    if 'data' or 'political' in targets:
+        print("This will make data prepped for the model! use src/political_etl.py for making functions")
+        with open('config/political_etl.json') as fh:
+            political_etl_config = json.load(fh)
+        pull_kaggle_data(**political_etl_config)
         
     if 'model' in targets:
         print("This will check which dataset to load (if REAL data exists, that. otherwise check if test data exists, uest that) and run model")

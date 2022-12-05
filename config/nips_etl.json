@@ -1,4 +1,4 @@
 {
-    "temp_dir": "nips/temp/",
-    "data_dir": "nips/raw/"
+    "temp_dir": "data/nips/temp/",
+    "data_dir": "data/nips/raw/"
 }

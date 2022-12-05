@@ -6,7 +6,7 @@ def clean():
 
     for folder in folders:
         for subfolder in subfolders:
-            currdir = os.path.join(folder, subfolder)
+            currdir = os.path.join("data", folder, subfolder)
             try:
                 for filename in os.listdir(currdir):
                     file_path = os.path.join(currdir, filename)
