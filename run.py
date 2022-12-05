@@ -14,7 +14,7 @@ import json
 sys.path.insert(0, 'src')
 
 from clean import clean
-from test_etl import create_rand_graphs, create_combined, create_combined_edges, plot_graph
+from test_etl import create_rand_graphs, create_combined, create_combined_edges
 from nips_etl import pull_kaggle_data, read_raw_sql
 from political_etl import pull_political_data, fix_political_gml, prepare_political
 # from spectral import
