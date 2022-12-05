@@ -1,5 +1,13 @@
 #!/usr/bin/env python
 
+# fix politcal file - add in multigraph line 
+# finish political etl
+# spectral file
+    # - test
+    # - political
+    # - nips
+# done w/ code
+
 import sys
 import json
 
