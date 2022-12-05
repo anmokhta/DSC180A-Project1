@@ -36,6 +36,15 @@ def pull_kaggle_data(data_dir, kaggle_dir):
         kapi.dataset_download_files(kaggle_dir, path=data_dir, quiet=False, unzip=True)
 
 
+def read_edge(gph, n0, n1): #add switch between plus and multiply
+if gph.has_edge(n0, n1):
+    gph[n0][n1]['weight'] +=1
+    return gph[n0][n1]['weight']
+else:
+    gph.add_edge(n0, n1, weight=1)
+    return 1
+
+
 def read_raw_sql(temp_dir):
     connect = sqlite3.connect('data/raw/database.sqlite')
     query = """
@@ -46,41 +55,14 @@ def read_raw_sql(temp_dir):
     ORDER BY paper_id
     """
     df_nips = pd.read_sql(query, connect)
-    df_nips.to_csv(temp_dir + 'df_nips.csv')
 
+    G = nx.Graph()
 
+    for p, a in df_nips.groupby('paper_id')['author_name']: 
+        for a1, a2 in itertools.combinations(a, 2):
+        # creates an edge
+        read_edge(G, a1, a2)
 
+    G.load(temp_dir + 'nips_graph.pickle')
 
-# def read_edge(gph, n0, n1): #add switch between plus and multiply
-# if gph.has_edge(n0, n1):
-#     gph[n0][n1]['weight'] +=1 #*= 2
-#     return gph[n0][n1]['weight']
-# else:
-#     gph.add_edge(n0, n1, weight=1)
-#     return 1
-
-# #https://www.kaggle.com/code/kevinvdsk/community-detection
-
-
-# connect = sqlite3.connect('../data/NIPS/database.sqlite')
-# query = """
-# SELECT pa.paper_id, pa.author_id, a.name AS author_name
-# FROM paper_authors AS pa JOIN papers AS p ON pa.paper_id = p.id
-# JOIN authors as a ON pa.author_id = a.id
-# WHERE p.Year BETWEEN '2015' AND '2018'
-# ORDER BY paper_id
-# """
-# df_nips = pd.read_sql(query, connect)
-
-# # Have a look at data
-# df_nips.head(10)
-
-# G = nx.Graph()
-
-# for p, a in df_nips.groupby('paper_id')['author_name']: 
-#     # TESTING print(a)
-#     for a1, a2 in itertools.combinations(a, 2):
-#         # creates an edge
-#         read_edge(G, a1, a2)
-        
-# #SAVE THIS GRAPH AS A PICKLE GRAPH IN TEMP
+    
