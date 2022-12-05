@@ -52,7 +52,7 @@ def main(targets):
         create_combined(**test_etl_config)
         create_combined_edges(**test_etl_config)
 
-    if 'nips' in targets
+    if 'nips' in targets:
         print("This will make data prepped for the model! use src/nips_etl.py for making functions")
         with open('config/nips_etl.json') as fh:
             nips_etl_config = json.load(fh)
