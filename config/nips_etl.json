@@ -1,4 +1,5 @@
 {
+    "kaggle_dir": "benhamner/nips-papers",
     "temp_dir": "data/nips/temp/",
     "data_dir": "data/nips/raw/"
 }
