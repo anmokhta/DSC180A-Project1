@@ -1,4 +1,5 @@
 {
+    "link": "http://www-personal.umich.edu/~mejn/netdata/polblogs.zip",
     "temp_dir": "data/political/temp/",
     "data_dir": "data/political/raw/"
 }
