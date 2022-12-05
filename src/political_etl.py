@@ -45,5 +45,5 @@ def prepare_political(link_dir, temp_dir, data_dir, raw_data_filename, temp_pick
 
     # TO-DO: Write ground truth json for temp folder
 
-    pickle.dump(cliq_graph, open(temp_dir + temp_pickle_graph_filename, 'wb'))
+    pickle.dump(G, open(temp_dir + temp_pickle_graph_filename, 'wb'))
     print(temp_dir + temp_pickle_graph_filename + ' saved!' )
