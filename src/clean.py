@@ -3,7 +3,7 @@ import os
 def clean():
     folders = ["test", "nips", "political"]
     subfolders = ["raw", "temp", "out"]
-    print(empty)
+    empty = True
     for folder in folders:
         for subfolder in subfolders:
             currdir = os.path.join("data", folder, subfolder)
