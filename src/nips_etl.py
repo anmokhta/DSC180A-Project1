@@ -71,5 +71,5 @@ def read_raw_sql(kaggle_dir, temp_dir, data_dir, raw_data_filename, temp_pickle_
         # creates an edge
             read_edge(G, a1, a2)
 
-    pickle.dump(cliq_graph, open(temp_dir + temp_pickle_graph_filename, 'wb'))
-    print(temp_dir + temp_pickle_graph_filename + ' saved!' )
+    pickle.dump(G, open(temp_dir + temp_pickle_graph_filename, 'wb'))
+    print(temp_dir + temp_pickle_graph_filename + ' saved!')
