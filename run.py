@@ -56,7 +56,7 @@ def main(targets):
         print("This will make data prepped for the model! use src/nips_etl.py for making functions")
         with open('config/nips_etl.json') as fh:
             nips_etl_config = json.load(fh)
-        pull_kaggle_data(**)
+        pull_kaggle_data(**nips_etl_config)
         read_raw_sql(**nips_etl_config)
 
 
