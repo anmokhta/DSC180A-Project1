@@ -1,20 +1,24 @@
 import sqlite3
 import os
 import os.path
+import pickle
 import pandas as pd
 import networkx as nx
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib import pylab
-
+#from matplotlib import pylab
 import itertools
+
+
+# TO-DO: ADD HEADER
+# TO-DO: ADD json option for multiply vs add?
+
 
 # "kaggle_dir": "benhamner/nips-papers",
 # "temp_dir": "data/nips/temp/",
 # "data_dir": "data/nips/raw/"
 
 
-#!pip install kaggle
 
 # TO-DO: get json file read in and remove key
 os.environ['KAGGLE_USERNAME']="andrewmokhta"
@@ -36,13 +40,16 @@ def pull_kaggle_data(kaggle_dir, temp_dir, data_dir, raw_data_filename, temp_pic
         kapi.dataset_download_files(kaggle_dir, path=data_dir, quiet=False, unzip=True)
 
 
-def read_edge(gph, n0, n1): #add switch between plus and multiply
-    if gph.has_edge(n0, n1):
-        gph[n0][n1]['weight'] +=1
-        return gph[n0][n1]['weight']
-    else:
-        gph.add_edge(n0, n1, weight=1)
-        return 1
+def read_edge(gph, n0, n1, multiply=True): #add switch between plus and multiply
+        if gph.has_edge(n0, n1):
+            if multiply:
+                gph[n0][n1]['weight'] *= 2
+            else:
+                gph[n0][n1]['weight'] +=1
+            return gph[n0][n1]['weight']
+        else:
+            gph.add_edge(n0, n1, weight=1)
+            return 1
 
 
 def read_raw_sql(kaggle_dir, temp_dir, data_dir, raw_data_filename, temp_pickle_graph_filename):
@@ -64,6 +71,5 @@ def read_raw_sql(kaggle_dir, temp_dir, data_dir, raw_data_filename, temp_pickle_
         # creates an edge
             read_edge(G, a1, a2)
 
-    G.load(temp_dir + temp_pickle_graph_filename)
-
-    
+    pickle.dump(cliq_graph, open(temp_dir + temp_pickle_graph_filename, 'wb'))
+    print(temp_dir + temp_pickle_graph_filename + ' saved!' )

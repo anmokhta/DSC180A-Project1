@@ -9,6 +9,7 @@ import networkx as nx
 import numpy as np
 import requests
 import zipfile
+import pickle
 from io import BytesIO
 
 def pull_political_data(link_dir, temp_dir, data_dir, raw_data_filename, temp_pickle_graph_filename, ground_truth_filename):
@@ -23,5 +24,26 @@ def pull_political_data(link_dir, temp_dir, data_dir, raw_data_filename, temp_pi
     zf.extractall(data_dir)
     print('Data Extracted in ' + data_dir)
 
+def fix_political_gml(link_dir, temp_dir, data_dir, raw_data_filename, temp_pickle_graph_filename, ground_truth_filename):
+    # opening raw data network (gml file) and adding fix for netx
+    # read file
+    f = open(data_dir + raw_data_filename, "r")
+    contents = f.readlines()
+    f.close()
+    # adding missing line to contents
+    missing_line = '  multigraph 1\n'
+    contents.insert(3, missing_line)
+    # write to file
+    f = open(data_dir + raw_data_filename, "w")
+    contents = "".join(contents)
+    f.write(contents)
+    f.close()
+
 def prepare_political(link_dir, temp_dir, data_dir, raw_data_filename, temp_pickle_graph_filename, ground_truth_filename):
     print("make pickle graph and ground truth json")
+    G = nx.read_gml("polblogsNEW.gml")
+
+    # TO-DO: Write ground truth json for temp folder
+
+    pickle.dump(cliq_graph, open(temp_dir + 'cliq_graph.pickle', 'wb'))
+    print(temp_dir + 'cliq_graph.pickle saved!' )
