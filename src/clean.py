@@ -9,8 +9,8 @@ def clean():
         for subfolder in subfolders:
             currdir = os.path.join("data", folder, subfolder)
             try:
-                empty = False
                 for filename in os.listdir(currdir):
+                    empty = False
                     file_path = os.path.join(currdir, filename)
                     try:
                         os.remove(file_path)
