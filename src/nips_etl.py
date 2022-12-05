@@ -24,7 +24,7 @@ from kaggle.api.kaggle_api_extended import KaggleApi
 
 
 #TO-DO: check if SQLITE FILE EXISTS
-def pull_kaggle_data(data_dir, kaggle_dir):
+def pull_kaggle_data(kaggle_dir, temp_dir, data_dir, raw_data_filename, temp_pickle_graph_filename):
 
     if os.path.exists("data/raw/database.sqlite"):
         print("Raw data already downloaded from Kaggle! Moving on to next step")
@@ -37,16 +37,17 @@ def pull_kaggle_data(data_dir, kaggle_dir):
 
 
 def read_edge(gph, n0, n1): #add switch between plus and multiply
-if gph.has_edge(n0, n1):
-    gph[n0][n1]['weight'] +=1
-    return gph[n0][n1]['weight']
-else:
-    gph.add_edge(n0, n1, weight=1)
-    return 1
+    if gph.has_edge(n0, n1):
+        gph[n0][n1]['weight'] +=1
+        return gph[n0][n1]['weight']
+    else:
+        gph.add_edge(n0, n1, weight=1)
+        return 1
 
 
-def read_raw_sql(temp_dir):
-    connect = sqlite3.connect('data/raw/database.sqlite')
+def read_raw_sql(kaggle_dir, temp_dir, data_dir, raw_data_filename, temp_pickle_graph_filename):
+    connect = sqlite3.connect(data_dir + raw_data_filename)
+    # PASS IN QUERY THINGS THROUGH CONFIG
     query = """
     SELECT pa.paper_id, pa.author_id, a.name AS author_name
     FROM paper_authors AS pa JOIN papers AS p ON pa.paper_id = p.id
@@ -61,8 +62,8 @@ def read_raw_sql(temp_dir):
     for p, a in df_nips.groupby('paper_id')['author_name']: 
         for a1, a2 in itertools.combinations(a, 2):
         # creates an edge
-        read_edge(G, a1, a2)
+            read_edge(G, a1, a2)
 
-    G.load(temp_dir + 'nips_graph.pickle')
+    G.load(temp_dir + temp_pickle_graph_filename)
 
     

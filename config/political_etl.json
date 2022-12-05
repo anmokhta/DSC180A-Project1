@@ -1,5 +1,8 @@
 {
-    "link": "http://www-personal.umich.edu/~mejn/netdata/polblogs.zip",
+    "link_dir": "http://www-personal.umich.edu/~mejn/netdata/polblogs.zip",
     "temp_dir": "data/political/temp/",
-    "data_dir": "data/political/raw/"
+    "data_dir": "data/political/raw/",
+    "raw_data_filename": "polblogs.gml",
+    "temp_pickle_graph_filename": "political_graph.pickle",
+    "ground_truth_filename": "ground_truth.json"
 }
