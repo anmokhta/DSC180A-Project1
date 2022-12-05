@@ -41,9 +41,9 @@ def fix_political_gml(link_dir, temp_dir, data_dir, raw_data_filename, temp_pick
 
 def prepare_political(link_dir, temp_dir, data_dir, raw_data_filename, temp_pickle_graph_filename, ground_truth_filename):
     print("make pickle graph and ground truth json")
-    G = nx.read_gml("polblogsNEW.gml")
+    G = nx.read_gml("polblogs.gml")
 
     # TO-DO: Write ground truth json for temp folder
 
-    pickle.dump(cliq_graph, open(temp_dir + 'cliq_graph.pickle', 'wb'))
-    print(temp_dir + 'cliq_graph.pickle saved!' )
+    pickle.dump(cliq_graph, open(temp_dir + temp_pickle_graph_filename, 'wb'))
+    print(temp_dir + temp_pickle_graph_filename + ' saved!' )
