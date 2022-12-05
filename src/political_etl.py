@@ -19,10 +19,9 @@ def pull_political_data(link_dir, temp_dir, data_dir, raw_data_filename, temp_pi
     print('Political Data Download Completed')
 
     # extracting the zip file contents
-    zipfile= zipfile.ZipFile(BytesIO(req.content))
-    zipfile.extractall(data_dir)
+    zf= zipfile.ZipFile(BytesIO(req.content))
+    zf.extractall(data_dir)
     print('Data Extracted in ' + data_dir)
 
 def prepare_political(link_dir, temp_dir, data_dir, raw_data_filename, temp_pickle_graph_filename, ground_truth_filename):
     print("make pickle graph and ground truth json")
-    
