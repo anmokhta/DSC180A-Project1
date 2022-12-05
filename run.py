@@ -7,7 +7,7 @@ sys.path.insert(0, 'src')
 
 from clean import clean
 from test_etl import create_rand_graphs, create_combined, create_combined_edges, plot_graph
-from nips_etl import pull_raw_data
+from nips_etl import pull_kaggle_data
 # from political_etl import
 # from spectral import
 
