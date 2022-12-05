@@ -13,7 +13,7 @@ The build script can be run directly from bash `python run.py`
 | `test-data`  | Generates and loads data network from test data  |
 | `nips`  | Downloads, extracts, and prepares data network from NIPS dataset  |
 | `data` (or `political`)  | Downloads, extracts, and prepares data network from Political dataset  |
-| `spectral`  | Content Cell  |
+| `spectral`  | Runs spectral embedding community detection  |
 | `test`  | equivilent of running `test-data` `spectral`
 | `all`  | equivilent of running `data` `spectral`  |
 
