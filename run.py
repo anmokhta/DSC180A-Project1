@@ -52,7 +52,7 @@ def main(targets):
         create_combined(**test_etl_config)
         create_combined_edges(**test_etl_config)
 
-    if 'data' or 'political' in targets:
+    if ('data' in targets) or ('political' in targets):
         print("This will make data prepped for the model! use src/political_etl.py for making functions")
         with open('config/political_etl.json') as fh:
             political_etl_config = json.load(fh)
