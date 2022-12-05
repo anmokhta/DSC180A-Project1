@@ -25,3 +25,4 @@ def pull_political_data(link_dir, temp_dir, data_dir, raw_data_filename, temp_pi
 
 def prepare_political(link_dir, temp_dir, data_dir, raw_data_filename, temp_pickle_graph_filename, ground_truth_filename):
     print("make pickle graph and ground truth json")
+    
