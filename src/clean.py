@@ -3,7 +3,6 @@ import os
 def clean():
     folders = ["test", "nips", "political"]
     subfolders = ["raw", "temp", "out"]
-    empty = True
     print(empty)
     for folder in folders:
         for subfolder in subfolders:
@@ -19,6 +18,5 @@ def clean():
                         print('Failed to delete %s. Reason: %s' % (file_path, e))
             except Exception as e:
                         print('Failed to find folder. Reason: %s' % (e))
-    print(empty)
     if empty:
         print("No files to delete! 'data' directory empty!")
