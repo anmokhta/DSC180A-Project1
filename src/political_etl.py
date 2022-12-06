@@ -37,7 +37,7 @@ def fix_political_gml(data_dir, raw_data_filename):
     missing_line = '  multigraph 1\n'
     contents.insert(3, missing_line)
     # write to file
-    with open(data_dir + raw_data_filename, "r") as fh:
+    with open(data_dir + raw_data_filename, "w") as fh:
         contents = "".join(contents)
         fh.write(contents)
     print("multigraph contents fixed!")
