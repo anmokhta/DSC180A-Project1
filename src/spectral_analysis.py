@@ -41,10 +41,12 @@ def spectral_cluster(G):
     # sort these based on the eigenvalues
     vecs = vecs[:,np.argsort(vals)]
     vals = vals[np.argsort(vals)]
+    print("prediction completed!")
     return [1 if i > 0 else 0 for i in vals]
 
 
 def spectral_evaluation(G):
+    print("evaluation starting")
     pred_list = spectral_cluster(G)
     # Returns accuracy
     evaluate1 = []
