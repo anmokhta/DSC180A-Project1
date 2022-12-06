@@ -39,7 +39,7 @@ def main(targets):
     #test-data
     #data
     #model
-    model_test = None
+    model_test = False
     
     if 'clean' in targets:
         clean()
@@ -83,13 +83,24 @@ def main(targets):
         if model_test:
             # plitical/temp
             print("using test data to make model!")
-            G = nx.read_gpickle('data/test/temp/combined.pickle')
-            g0, g1 = return_sub_graphs(G)[0], return_sub_graphs(G)[1]
-            g_dict = {'main_graph':G, 'subgraph1':g0, 'subgraph2':g1}
-            for i in ['main_graph', 'subgraph1', 'subgraph2']:
-                print(graph_stats(g_dict[i]))
-                # print('graph_stats finished')
-                # spectral_evaluation(g_dict[i])
+
+            GR = nx.read_gpickle('data/test/temp/combined.pickle')
+            g0, g1 = return_sub_graphs(GR)[0], return_sub_graphs(GR)[1]
+            g_dict = {'main_graph':GR, 'subgraph1':g0, 'subgraph2':g1}
+
+            with open("data/test/out/graphstats.txt", "w") as fh:
+                for i in ['main_graph', 'subgraph1', 'subgraph2']:
+                    fh.write(i)
+                    fh.write(str(graph_stats(g_dict[i])))
+                    fh.write("\n")
+
+            create_original_data(GR, "data/test/out/unlabeled_graph.pdf")
+            save_ground_truth_graph(GR, "data/test/temp/ground_truth.json", "data/test/out/ground_truth.pdf")
+
+            evals = spectral_evaluation(GR)
+
+            save_prediction_graph(GR, evals["predictions"], "data/test/out/prediction_graph.pdf")
+            
         else:
             # test/temp
             print("using real data to make model!")
@@ -105,11 +116,11 @@ def main(targets):
                     fh.write("\n")
 
             create_original_data(GR, "data/political/out/unlabeled_graph.pdf")
-            save_ground_truth_graph(GR, "data/political/temp/ground_truth.json", "../data/political/out/ground_truth.pdf")
+            save_ground_truth_graph(GR, "data/political/temp/ground_truth.json", "data/political/out/ground_truth.pdf")
 
             evals = spectral_evaluation(GR)
 
-            save_prediction_graph(GR, evals["predictions"], "../data/political/out/prediction_graph.pdf")
+            save_prediction_graph(GR, evals["predictions"], "data/political/out/prediction_graph.pdf")
 
         
 if __name__ == '__main__':
