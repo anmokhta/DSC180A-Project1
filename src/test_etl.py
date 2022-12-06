@@ -116,7 +116,7 @@ def create_combined_edges(N, Cn, Cp, Op, q, s, temp_dir, data_dir):
         ground_truth = json.load(openfile)
     
     seed(s)
-    combined.add_edges_from([ (u, v) for u, v in product(ground_truth['clique_nodes'], ground_truth['outer_nodes']) if random() < q ])
+    combined.add_edges_from([ (u, v) for u, v in product(ground_truth['0'], ground_truth['1']) if random() < q ])
     if os.path.exists(temp_dir + 'combined.pickle'):
         # delete existing graph
         os.remove(temp_dir + 'combined.pickle')
