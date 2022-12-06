@@ -44,9 +44,11 @@ def create_rand_graphs(N, Cn, Cp, Op, q, s, temp_dir, data_dir):
 
     # save seperate graphs as files
 
-    pickle.dump(cliq_graph, open(data_dir + 'cliq_graph.pickle', 'wb'))
+
+
+    nx.write_gpickle(cliq_graph, data_dir + 'cliq_graph.pickle')
     print(data_dir + 'cliq_graph.pickle saved!' )
-    pickle.dump(out_graph, open(data_dir + 'out_graph.pickle', 'wb'))
+    nx.write_gpickle(out_graph, data_dir + 'out_graph.pickle')
     print(data_dir + 'out_graph.pickle saved!' )
 
 
@@ -56,15 +58,20 @@ def create_rand_graphs(N, Cn, Cp, Op, q, s, temp_dir, data_dir):
 
 def create_combined(N, Cn, Cp, Op, q, s, temp_dir, data_dir):
     # load in seperate graphs
-    clique = pickle.load(open(data_dir + 'cliq_graph.pickle', 'rb'))
-    outer = pickle.load(open(data_dir + 'out_graph.pickle', 'rb'))
+    clique = nx.read_gpickle(data_dir + 'cliq_graph.pickle')
+    outer = nx.read_gpickle(data_dir + 'out_graph.pickle')
+
     
     clique_nodes = clique.nodes()
+    for node in clique_nodes.nodes():
+        clique_nodes[node][value] = 1
     
     # rename the outer nodes
     outer_dict_relabel = dict(zip(range(N-Cn), range(Cn, N)))
     nx.relabel_nodes(outer, outer_dict_relabel, False)
     outer_nodes = outer.nodes()
+    for node in outer_nodes.nodes():
+        outer_nodes[node][value] = 1
     
     # create ground truth JSON
     ground_truths = {
@@ -88,11 +95,13 @@ def create_combined(N, Cn, Cp, Op, q, s, temp_dir, data_dir):
     combined.add_nodes_from(outer_nodes)
     combined.add_edges_from(outer.edges())
     
+    
+
     if os.path.exists(data_dir + 'combined_separated.pickle'):
         # delete existing graph
         os.remove(data_dir + 'combined_separated.pickle')
     
-    pickle.dump(combined, open(data_dir + 'combined_separated.pickle', 'wb'))
+    nx.write_gpickle(combined, data_dir + 'combined_separated.pickle')
     print(data_dir + 'combined_separated.pickle saved!' )
 
     
@@ -104,7 +113,7 @@ def create_combined(N, Cn, Cp, Op, q, s, temp_dir, data_dir):
 
 
 def create_combined_edges(N, Cn, Cp, Op, q, s, temp_dir, data_dir):
-    combined = pickle.load(open(data_dir + 'combined_separated.pickle', 'rb'))
+    combined = nx.read_gpickle(data_dir + 'combined_separated.pickle')
     
     with open(temp_dir + 'ground_truth.json', "r") as openfile:
         ground_truth = json.load(openfile)
@@ -115,22 +124,8 @@ def create_combined_edges(N, Cn, Cp, Op, q, s, temp_dir, data_dir):
         # delete existing graph
         os.remove(temp_dir + 'combined.pickle')
         
-    pickle.dump(combined, open(temp_dir + 'combined.pickle', 'wb'))
+    nx.write_gpickle(combined, temp_dir + 'combined.pickle')
     print(temp_dir + 'combined.pickle saved!' )
     
 
-
-# def plot_graph(combined, clique_nodes, outer_nodes):
-#     combined = pickle.load(open('data/test/temp/combined.pickle', 'rb'))
-#    
-#     with open('data/test/temp/ground_truth.json', 'r') as openfile:
-#         ground_truth = json.load(openfile)
-#
-#   
-#     pos = nx.spring_layout(combined)
-#    
-#     nx.draw_networkx_nodes(combined, pos=pos, nodelist=ground_truth['clique_nodes'], node_color='r', node_size=50)
-#     nx.draw_networkx_nodes(combined, pos=pos, nodelist=ground_truth['outer_nodes'], node_color='b', node_size=50)
-#     nx.draw_networkx_edges(combined, pos=pos)
-#     return plt.show()
     

@@ -52,7 +52,7 @@ def prepare_political(link_dir, temp_dir, data_dir, raw_data_filename, temp_pick
         largest = max(nx.connected_components(H), key=len)
         largest_SCC = G.subgraph(largest)
 
-        pickle.dump(largest_SCC, open(temp_dir + temp_pickle_graph_filename, 'wb'))
+        nx.write_gpickle(largest_SCC, temp_dir + temp_pickle_graph_filename)
         print(temp_dir + temp_pickle_graph_filename + ' saved!' )
 
 
