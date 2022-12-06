@@ -46,8 +46,8 @@ def spectral_cluster(G):
 
 
 def spectral_evaluation(G):
-    print("evaluation starting")
     pred_list = spectral_cluster(G)
+    print("evaluation starting")
     # Returns accuracy
     evaluate1 = []
     evaluate2 = []
@@ -58,7 +58,7 @@ def spectral_evaluation(G):
         evaluate2.append(pred_list[index] != i[1]['value'])
         pred_dict[i[1]['value']].append(i[1]['label'])
         index += 1
-
+    print("post for list")
     vals = {
         'predictions': pred_dict,
         'accuracy': max(sum(evaluate1)/len(evaluate1), sum(evaluate2)/len(evaluate2))
