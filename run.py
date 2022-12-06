@@ -8,6 +8,8 @@
     # - nips
 # done w/ code
 
+# TO-DO: REMOVE NOTEBOOK FOLDER AT END
+
 import sys
 import json
 
