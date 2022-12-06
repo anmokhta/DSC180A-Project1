@@ -12,6 +12,7 @@ import zipfile
 import pickle
 import os
 from io import BytesIO
+import json
 
 def pull_political_data(link_dir, temp_dir, data_dir, raw_data_filename, temp_pickle_graph_filename, ground_truth_filename):
     if os.path.exists(data_dir + raw_data_filename):
@@ -47,24 +48,25 @@ def prepare_political(link_dir, temp_dir, data_dir, raw_data_filename, temp_pick
         print("Pickle data already prepared for analysis! Moving on to next step")
     else:
         G = nx.read_gml(data_dir + raw_data_filename, label='id')
+        H = G.to_undirected()
+        largest = max(nx.connected_components(H), key=len)
+        largest_SCC = G.subgraph(largest)
 
-        # TODO: Write ground truth json for temp folder
-
-        pickle.dump(G, open(temp_dir + temp_pickle_graph_filename, 'wb'))
+        pickle.dump(largest_SCC, open(temp_dir + temp_pickle_graph_filename, 'wb'))
         print(temp_dir + temp_pickle_graph_filename + ' saved!' )
 
 
         ground_truths = {
-            0: [] # democrat
+            0: [], # democrat
             1: []  # republican
         }
 
-        for i in H.nodes:
-            ground_truths[H.nodes[i]['value']].append(i)
+        for i in largest_SCC.nodes:
+            ground_truths[largest_SCC.nodes[i]['value']].append(i)
 
-        with open(temp_dir + 'ground_truth.json', "w") as outfile:
+        with open(temp_dir + ground_truth_filename, "w") as outfile:
             json.dump(ground_truths, outfile)
-        print(temp_dir + 'ground_truth.json saved!' )
+        print(temp_dir + ground_truth_filename + 'saved!' )
 
 
 
