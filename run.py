@@ -47,12 +47,12 @@ def main(targets):
     if 'test' in targets:
         targets.extend(["test-data", "spectral"])
         model_test = True
-        print("extended test-data & model!")
+        print("extended test-data & spectral!")
 
     if 'all' in targets:
-        targets.extend(["data", "model"])
+        targets.extend(["data", "spectral"])
         model_test = False
-        print("extended data & model!")
+        print("extended data & spectral!")
     
     if 'test-data' in targets:
         with open('config/test_etl.json') as fh:
@@ -114,12 +114,14 @@ def main(targets):
                     fh.write(i)
                     fh.write(str(graph_stats(g_dict[i])))
                     fh.write("\n")
-
+            print("saving unlabeled graph")
             create_original_data(GR, "data/political/out/unlabeled_graph.pdf")
+            print("saving ground truth graph")
             save_ground_truth_graph(GR, "data/political/temp/ground_truth.json", "data/political/out/ground_truth.pdf")
 
             evals = spectral_evaluation(GR)
 
+            print("saving prediction graph")
             save_prediction_graph(GR, evals["predictions"], "data/political/out/prediction_graph.pdf")
 
         
