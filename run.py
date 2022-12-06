@@ -45,7 +45,7 @@ def main(targets):
         clean()
     
     if 'test' in targets:
-        targets.extend(["test-data", "model"])
+        targets.extend(["test-data", "spectral"])
         model_test = True
         print("extended test-data & model!")
 
