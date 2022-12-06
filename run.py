@@ -63,7 +63,7 @@ def main(targets):
         create_combined_edges(**test_etl_config)
 
     if 'nips' in targets:
-        print("This will make data prepped for the model! use src/nips_etl.py for making functions")
+        print("This will download depreciated data (the nips paperset, removed)")
         with open('config/nips_etl.json') as fh:
             nips_etl_config = json.load(fh)
         pull_kaggle_data(**nips_etl_config)
@@ -95,13 +95,16 @@ def main(targets):
                     fh.write(i)
                     fh.write(str(graph_stats(g_dict[i])))
                     fh.write("\n")
-
-            create_original_data(GR, "data/test/out/unlabeled_graph.pdf")
-            save_ground_truth_graph(GR, "data/test/temp/ground_truth.json", "data/test/out/ground_truth.pdf")
-
+            
+            print("saving unlabeled graph")
+            create_original_data(GR, "data/political/out/unlabeled_graph.pdf")
+            print("saving ground truth graph")
+            save_ground_truth_graph(GR, "data/political/temp/ground_truth.json", "data/political/out/ground_truth.pdf")
+            print("spectral clustering")
             evals = spectral_evaluation(GR)
 
-            save_prediction_graph(GR, evals["predictions"], "data/test/out/prediction_graph.pdf")
+            print("saving prediction graph")
+            save_prediction_graph(GR, evals["predictions"], "data/political/out/prediction_graph.pdf")
             
         else:
             # test/temp
