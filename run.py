@@ -99,7 +99,7 @@ def main(targets):
             print("saving unlabeled graph")
             create_original_data(GR, "data/political/out/unlabeled_graph.pdf")
             print("saving ground truth graph")
-            save_ground_truth_graph(GR, "data/political/temp/ground_truth.json", "data/political/out/ground_truth.pdf")
+            #save_ground_truth_graph(GR, "data/political/temp/ground_truth.json", "data/political/out/ground_truth.pdf")
             print("spectral clustering")
             evals = spectral_evaluation(GR)
 
