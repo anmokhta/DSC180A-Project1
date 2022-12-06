@@ -12,6 +12,7 @@
 
 import sys
 import json
+import networkx as nx
 
 sys.path.insert(0, 'src')
 
