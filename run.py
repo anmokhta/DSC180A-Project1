@@ -87,8 +87,8 @@ def main(targets):
             g_dict = {'main_graph':G, 'subgraph1':g0, 'subgraph2':g1}
             for i in ['main_graph', 'subgraph1', 'subgraph2']:
                 graph_stats(g_dict[i])
-                print('graph_stats finished')
-                spectral_evaluation(g_dict[i])
+                # print('graph_stats finished')
+                # spectral_evaluation(g_dict[i])
         else:
             # test/temp
             print("using real data to make model!")
@@ -97,8 +97,8 @@ def main(targets):
             g_dict = {'main_graph':G, 'subgraph1':g0, 'subgraph2':g1}
             for i in ['main_graph', 'subgraph1', 'subgraph2']:
                 graph_stats(g_dict[i])
-                print('graph_stats finished')
-                spectral_evaluation(g_dict[i])
+                # print('graph_stats finished')
+                # spectral_evaluation(g_dict[i])
         # Maybe do above with data checker function idk
         
 if __name__ == '__main__':
