@@ -59,7 +59,8 @@ def spectral_evaluation(G):
     for i in list(G.nodes(data = True)):
         evaluate1.append(pred_list[index] == i[1]['value'])
         evaluate2.append(pred_list[index] != i[1]['value'])
-        pred_dict[i[1]['value']].append(i[1]['label'])
+        pred_dict[i[1]['value']].append(i[0])
+        # pred_dict[i[1]['value']].append(i[1]['label'])
         index += 1
     print("post for list")
     vals = {
