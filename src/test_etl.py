@@ -61,13 +61,13 @@ def create_combined(N, Cn, Cp, Op, q, s, temp_dir, data_dir):
     clique = nx.read_gpickle(data_dir + 'cliq_graph.pickle')
     outer = nx.read_gpickle(data_dir + 'out_graph.pickle')
 
-    nx.set_node_attributes(clique, "value", '1')
+    nx.set_node_attributes(clique, 1, "value")
     clique_nodes = clique.nodes(data=True)
     
     # rename the outer nodes
     outer_dict_relabel = dict(zip(range(N-Cn), range(Cn, N)))
     nx.relabel_nodes(outer, outer_dict_relabel, False)
-    nx.set_node_attributes(outer, "value", '0')
+    nx.set_node_attributes(outer, 0, "value")
     outer_nodes = outer.nodes(data=True)
     
     # create ground truth JSON
