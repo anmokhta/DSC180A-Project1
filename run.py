@@ -86,7 +86,7 @@ def main(targets):
             g0, g1 = return_sub_graphs(G)[0], return_sub_graphs(G)[1]
             g_dict = {'main_graph':G, 'subgraph1':g0, 'subgraph2':g1}
             for i in ['main_graph', 'subgraph1', 'subgraph2']:
-                graph_stats(g_dict[i])
+                print(graph_stats(g_dict[i]))
                 # print('graph_stats finished')
                 # spectral_evaluation(g_dict[i])
         else:
@@ -96,7 +96,7 @@ def main(targets):
             g0, g1 = return_sub_graphs(G)[0], return_sub_graphs(G)[1]
             g_dict = {'main_graph':G, 'subgraph1':g0, 'subgraph2':g1}
             for i in ['main_graph', 'subgraph1', 'subgraph2']:
-                graph_stats(g_dict[i])
+                print(graph_stats(g_dict[i]))
                 # print('graph_stats finished')
                 # spectral_evaluation(g_dict[i])
         # Maybe do above with data checker function idk
