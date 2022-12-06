@@ -93,9 +93,10 @@ def main(targets):
             print("using real data to make model!")
             G = nx.read_gpickle('data/political/temp/political_graph.pickle')
             g0, g1 = return_sub_graphs(G)[0], return_sub_graphs(G)[1]
+            g_dict = {'main_graph':G, 'subgraph1':g0, 'subgraph2':g1}
             for i in ['main_graph', 'subgraph1', 'subgraph2']:
-                graph_stats(i)
-                spectral_evaluation(i)
+                graph_stats(g_dict[i])
+                spectral_evaluation(g_dict[i])
         # Maybe do above with data checker function idk
         
 if __name__ == '__main__':
