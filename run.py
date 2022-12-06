@@ -1,13 +1,5 @@
 #!/usr/bin/env python
 
-# fix politcal file - add in multigraph line 
-# finish political etl
-# spectral file
-    # - test
-    # - political
-    # - nips
-# done w/ code
-
 # TODO: REMOVE NOTEBOOK FOLDER AT END
 
 import sys
@@ -30,15 +22,7 @@ def main(targets):
         targets must contain: 'data', 'model'.
         `main` runs the targets in order of data=>model.
     '''
-
-    ##FULL ORDER OF TARGETS BY PRIORITY
-    #clean (remove all data)
-    #test (test-data model)
-    #all (data -> model)
-
-    #test-data
-    #data
-    #model
+    
     model_test = False
     
     if 'clean' in targets:

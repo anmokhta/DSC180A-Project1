@@ -29,7 +29,6 @@ def pull_political_data(link_dir, temp_dir, data_dir, raw_data_filename, temp_pi
         fix_political_gml(data_dir, raw_data_filename)
 
 def fix_political_gml(data_dir, raw_data_filename):
-    # TODO Make into a helper function, do not run if political gml already exists
     # opening raw data network (gml file) and adding fix for netx
     # read file
     with open(data_dir + raw_data_filename, "r") as fh:
