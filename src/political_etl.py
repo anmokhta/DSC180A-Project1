@@ -10,43 +10,45 @@ import numpy as np
 import requests
 import zipfile
 import pickle
+import os
 from io import BytesIO
 
 def pull_political_data(link_dir, temp_dir, data_dir, raw_data_filename, temp_pickle_graph_filename, ground_truth_filename):
-    # TODO Check if file exists before downlaoding!
-    filename = link_dir.split('/')[-1]
+    if os.path.exists(data_dir + raw_data_filename):
+        print("Raw data already downloaded from internet! Moving on to next step")
+    else:
+        print('Beginning Political Data Download')
+        req = requests.get(link_dir)
+        print('Political Data Download Completed')
 
-    print('Beginning Political Data Download')
-    req = requests.get(link_dir)
-    print('Political Data Download Completed')
+        # extracting the zip file contents
+        zf= zipfile.ZipFile(BytesIO(req.content))
+        zf.extractall(data_dir)
+        print('Data Extracted in ' + data_dir)
+        fix_political_gml(data_dir, raw_data_filename)
 
-    # extracting the zip file contents
-    zf= zipfile.ZipFile(BytesIO(req.content))
-    zf.extractall(data_dir)
-    print('Data Extracted in ' + data_dir)
-
-def fix_political_gml(link_dir, temp_dir, data_dir, raw_data_filename, temp_pickle_graph_filename, ground_truth_filename):
+def fix_political_gml(data_dir, raw_data_filename):
     # TODO Make into a helper function, do not run if political gml already exists
     # opening raw data network (gml file) and adding fix for netx
     # read file
-    f = open(data_dir + raw_data_filename, "r")
-    contents = f.readlines()
-    f.close()
+    with open(data_dir + raw_data_filename, "r") as fh:
+        contents = fh.readlines()
     # adding missing line to contents
     missing_line = '  multigraph 1\n'
     contents.insert(3, missing_line)
     # write to file
-    f = open(data_dir + raw_data_filename, "w")
-    contents = "".join(contents)
-    f.write(contents)
-    f.close()
+    with open(data_dir + raw_data_filename, "r") as fh:
+        contents = "".join(contents)
+        fh.write(contents)
+    print("multigraph contents fixed!")
 
 def prepare_political(link_dir, temp_dir, data_dir, raw_data_filename, temp_pickle_graph_filename, ground_truth_filename):
-    # TODO: See if picle already exists
-    print("make pickle graph and ground truth json")
-    G = nx.read_gml(data_dir + raw_data_filename)
+    if os.path.exists(temp_dir + temp_pickle_graph_filename):
+        print("Pickle data already prepared for analysis! Moving on to next step")
+    else:
+        G = nx.read_gml(data_dir + raw_data_filename)
 
-    # TODO: Write ground truth json for temp folder
+        # TODO: Write ground truth json for temp folder
 
-    pickle.dump(G, open(temp_dir + temp_pickle_graph_filename, 'wb'))
-    print(temp_dir + temp_pickle_graph_filename + ' saved!' )
+        pickle.dump(G, open(temp_dir + temp_pickle_graph_filename, 'wb'))
+        print(temp_dir + temp_pickle_graph_filename + ' saved!' )

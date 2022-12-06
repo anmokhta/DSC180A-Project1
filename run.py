@@ -56,9 +56,7 @@ def main(targets):
     if 'test-data' in targets:
         with open('config/test_etl.json') as fh:
             test_etl_config = json.load(fh)
-        #check if pickles not exist in raw, if true run function below (ADD INTO ETL PY FILE)
         create_rand_graphs(**test_etl_config)
-        #check if gt or combined_seperated not exist in temp
         create_combined(**test_etl_config)
         create_combined_edges(**test_etl_config)
 
@@ -75,7 +73,6 @@ def main(targets):
         with open('config/political_etl.json') as fh:
             political_etl_config = json.load(fh)
         pull_political_data(**political_etl_config)
-        fix_political_gml(**political_etl_config)
         prepare_political(**political_etl_config)
         
         
@@ -89,7 +86,7 @@ def main(targets):
         
 if __name__ == '__main__':
     # run via:
-    # python main.py data model
+    # python main.py data spectral
     targets = sys.argv[1:]
     main(targets)
 
