@@ -46,9 +46,31 @@ def prepare_political(link_dir, temp_dir, data_dir, raw_data_filename, temp_pick
     if os.path.exists(temp_dir + temp_pickle_graph_filename):
         print("Pickle data already prepared for analysis! Moving on to next step")
     else:
-        G = nx.read_gml(data_dir + raw_data_filename)
+        G = nx.read_gml(data_dir + raw_data_filename, label='id')
 
         # TODO: Write ground truth json for temp folder
 
         pickle.dump(G, open(temp_dir + temp_pickle_graph_filename, 'wb'))
         print(temp_dir + temp_pickle_graph_filename + ' saved!' )
+
+
+        ground_truths = {
+            0: [] # democrat
+            1: []  # republican
+        }
+
+        for i in H.nodes:
+            ground_truths[H.nodes[i]['value']].append(i)
+
+        with open(temp_dir + 'ground_truth.json', "w") as outfile:
+            json.dump(ground_truths, outfile)
+        print(temp_dir + 'ground_truth.json saved!' )
+
+
+
+
+
+
+
+
+
