@@ -55,6 +55,7 @@ def main(targets):
         print("extended data & spectral!")
     
     if 'test-data' in targets:
+        model_test = True
         with open('config/test_etl.json') as fh:
             test_etl_config = json.load(fh)
         create_rand_graphs(**test_etl_config)
@@ -70,6 +71,7 @@ def main(targets):
 
 
     if ('data' in targets) or ('political' in targets):
+        model_test = False
         print("This will make data prepped for the model! use src/political_etl.py for making functions")
         with open('config/political_etl.json') as fh:
             political_etl_config = json.load(fh)
@@ -118,7 +120,7 @@ def main(targets):
             create_original_data(GR, "data/political/out/unlabeled_graph.pdf")
             print("saving ground truth graph")
             save_ground_truth_graph(GR, "data/political/temp/ground_truth.json", "data/political/out/ground_truth.pdf")
-
+            print("spectral clustering")
             evals = spectral_evaluation(GR)
 
             print("saving prediction graph")
