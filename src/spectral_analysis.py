@@ -1,5 +1,8 @@
 import numpy as np
 import networkx as nx
+import pickle
+import json
+import matplotlib as plt
 
 def graph_stats(G):
     deg = []
@@ -27,3 +30,14 @@ def spectral_cluster(G):
     vecs = vecs[:,np.argsort(vals)]
     vals = vals[np.argsort(vals)]
     return [1 if i > 0 else 0 for i in vals]
+
+def return_sub_graphs(G)
+    sub_graphs = {0:[], 1:[]}
+    for i in G.nodes:
+        G.subgraph(i)
+
+        sub_graphs[G.nodes[i]['value']].append(i)
+
+    for i in sub_graphs:
+        sub_graphs[i] = G.subgraph(sub_graphs[i])
+    return sub_graphs
