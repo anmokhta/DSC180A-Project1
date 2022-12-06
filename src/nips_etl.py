@@ -10,8 +10,8 @@ import matplotlib.pyplot as plt
 import itertools
 
 
-# TO-DO: ADD HEADER
-# TO-DO: ADD json option for multiply vs add?
+# TODO: ADD HEADER
+# TODO: ADD json option for multiply vs add?
 
 
 # "kaggle_dir": "benhamner/nips-papers",
@@ -20,14 +20,14 @@ import itertools
 
 
 
-# TO-DO: get json file read in and remove key
+# TODO: get json file read in and remove key
 os.environ['KAGGLE_USERNAME']="andrewmokhta"
 os.environ['KAGGLE_KEY']="eb7de261bcf48ef0ca684c07e28bb309"
 
 from kaggle.api.kaggle_api_extended import KaggleApi
 
 
-#TO-DO: check if SQLITE FILE EXISTS
+#TODO: check if SQLITE FILE EXISTS
 def pull_kaggle_data(kaggle_dir, temp_dir, data_dir, raw_data_filename, temp_pickle_graph_filename):
 
     if os.path.exists("data/raw/database.sqlite"):

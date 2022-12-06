@@ -14,7 +14,7 @@
 # outer_nodes = ground_truth list of outer nodes
 
 
-# TO-DO: ADD FILENAMES TO JSON CONFIG; LOOK AT OTHER ETL CONFIGS TO COMPARE
+# TODO: ADD FILENAMES TO JSON CONFIG; LOOK AT OTHER ETL CONFIGS TO COMPARE
 
 from random import random
 from random import seed

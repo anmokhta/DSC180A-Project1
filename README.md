@@ -3,33 +3,19 @@
 
 <!--This site was built using [GitHub Pages](https://pages.github.com/).-->
 
-## Commands
-
-The build script can be run directly from bash `python run.py`
-
-| Command | Description |
-| --- | --- |
-| `clean`  | Clears remnents of previous networks or communitiy detection  |
-| `test-data`  | Generates and loads data network from test data  |
-| `nips`  | Downloads, extracts, and prepares data network from NIPS dataset  |
-| `data` (or `political`)  | Downloads, extracts, and prepares data network from Political dataset  |
-| `spectral`  | Runs spectral embedding community detection  |
-| `test`  | equivilent of running `test-data` `spectral`
-| `all`  | equivilent of running `data` `spectral`  |
-
 ## Data Background
 
 - **Political Dataset**
 - ~~**NIPS Papers**~~
 - **Generated Test Data**
-## Run
+
+## Deployment
 
 Clone the project
 
 ```bash
   git clone https://github.com/anmokhta/DSC180A-Project1
 ```
-## Deployment
 
 After running Docker and logging into your account, launch the docker image:
 
@@ -44,7 +30,19 @@ From there, copy in the directory, change directories into the project and run c
   cd DSC180A-Project1
   python run.py test
 ```
+## Commands
 
+The build script can be run directly from bash `python run.py`
+
+| Command | Description |
+| --- | --- |
+| `clean`  | Clears remnents of previous networks or communitiy detection  |
+| `test-data`  | Generates and loads data network from test data  |
+| `nips`  | Downloads, extracts, and prepares data network from NIPS dataset  |
+| `data` (or `political`)  | Downloads, extracts, and prepares data network from Political dataset  |
+| `spectral`  | Runs spectral embedding community detection  |
+| `test`  | equivilent of running `test-data` `spectral`
+| `all`  | equivilent of running `data` `spectral`  |
 
 ## Authors
 

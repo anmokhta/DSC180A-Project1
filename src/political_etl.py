@@ -13,6 +13,7 @@ import pickle
 from io import BytesIO
 
 def pull_political_data(link_dir, temp_dir, data_dir, raw_data_filename, temp_pickle_graph_filename, ground_truth_filename):
+    # TODO Check if file exists before downlaoding!
     filename = link_dir.split('/')[-1]
 
     print('Beginning Political Data Download')
@@ -25,6 +26,7 @@ def pull_political_data(link_dir, temp_dir, data_dir, raw_data_filename, temp_pi
     print('Data Extracted in ' + data_dir)
 
 def fix_political_gml(link_dir, temp_dir, data_dir, raw_data_filename, temp_pickle_graph_filename, ground_truth_filename):
+    # TODO Make into a helper function, do not run if political gml already exists
     # opening raw data network (gml file) and adding fix for netx
     # read file
     f = open(data_dir + raw_data_filename, "r")
@@ -40,10 +42,11 @@ def fix_political_gml(link_dir, temp_dir, data_dir, raw_data_filename, temp_pick
     f.close()
 
 def prepare_political(link_dir, temp_dir, data_dir, raw_data_filename, temp_pickle_graph_filename, ground_truth_filename):
+    # TODO: See if picle already exists
     print("make pickle graph and ground truth json")
     G = nx.read_gml(data_dir + raw_data_filename)
 
-    # TO-DO: Write ground truth json for temp folder
+    # TODO: Write ground truth json for temp folder
 
     pickle.dump(G, open(temp_dir + temp_pickle_graph_filename, 'wb'))
     print(temp_dir + temp_pickle_graph_filename + ' saved!' )
