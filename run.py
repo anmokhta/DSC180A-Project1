@@ -79,6 +79,7 @@ def main(targets):
         
     if 'spectral' in targets:
         print("This will check which dataset to load (if REAL data exists, that. otherwise check if test data exists, uest that) and run model")
+        print(model_test)
         if model_test:
             # plitical/temp
             print("using test data to make model!")
