@@ -72,8 +72,8 @@ def create_combined(N, Cn, Cp, Op, q, s, temp_dir, data_dir):
     
     # create ground truth JSON
     ground_truths = {
-        "clique_nodes": list(clique_nodes),
-        "outer_nodes": list(outer_nodes)
+        "clique_nodes": list(clique.nodes()),
+        "outer_nodes": list(outer.nodes())
     }
     
     if os.path.exists(temp_dir + 'ground_truth.json'):
