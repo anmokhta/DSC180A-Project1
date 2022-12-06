@@ -71,8 +71,3 @@ def prepare_political(link_dir, temp_dir, data_dir, raw_data_filename, temp_pick
 
 
 
-
-
-
-
-

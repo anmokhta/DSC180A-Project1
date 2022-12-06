@@ -20,7 +20,7 @@ from clean import clean
 from test_etl import create_rand_graphs, create_combined, create_combined_edges
 from nips_etl import pull_kaggle_data, read_raw_sql
 from political_etl import pull_political_data, fix_political_gml, prepare_political
-from spectral_analysis import graph_stats, return_sub_graphs, spectral_cluster, prediction_evaluation, spectral_evaluation
+from spectral_analysis import graph_stats, return_sub_graphs, spectral_cluster, spectral_evaluation, create_original_data, save_ground_truth_graph, save_prediction_graph
 
 
 
@@ -93,14 +93,24 @@ def main(targets):
         else:
             # test/temp
             print("using real data to make model!")
-            G = nx.read_gpickle('data/political/temp/political_graph.pickle')
-            g0, g1 = return_sub_graphs(G)[0], return_sub_graphs(G)[1]
-            g_dict = {'main_graph':G, 'subgraph1':g0, 'subgraph2':g1}
-            for i in ['main_graph', 'subgraph1', 'subgraph2']:
-                print(graph_stats(g_dict[i]))
-                # print('graph_stats finished')
-                # spectral_evaluation(g_dict[i])
-        # Maybe do above with data checker function idk
+
+            GR = nx.read_gpickle("data/political/temp/political_graph.pickle") 
+            g0, g1 = return_sub_graphs(GR)[0], return_sub_graphs(GR)[1]
+            g_dict = {'main_graph':GR, 'subgraph1':g0, 'subgraph2':g1}
+
+            with open("data/political/out/graphstats.txt", "w") as fh:
+                for i in ['main_graph', 'subgraph1', 'subgraph2']:
+                    fh.write(i)
+                    fh.write(str(graph_stats(g_dict[i])))
+                    fh.write("\n")
+
+            create_original_data(GR, "data/political/out/unlabeled_graph.pdf")
+            save_ground_truth_graph(GR, "data/political/temp/ground_truth.json", "../data/political/out/ground_truth.pdf")
+
+            evals = spectral_evaluation(GR)
+
+            save_prediction_graph(GR, evals["predictions"], "../data/political/out/prediction_graph.pdf")
+
         
 if __name__ == '__main__':
     # run via:
