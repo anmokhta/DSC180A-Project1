@@ -32,7 +32,7 @@ github_username:  anmokhta
 
 
 # Build settings
-theme: tactile
+theme: jekyll-theme-tactile
 plugins:
   - jekyll-feed
 
